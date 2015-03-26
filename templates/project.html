@@ -1,0 +1,145 @@
+{% extends "baseLayout.html" %}
+
+{% block topLink %}
+{% endblock %}
+
+{% block head %}
+    
+<style>
+.contentsWrapper{
+
+}
+.contents{
+	margin: auto;
+	max-width: 600px;
+	padding: 40px;
+	padding-bottom: 100px;
+	background-color: rgba(200,200,200,.3);
+	border-radius: 4px;
+}
+.formInputLabel{
+	display: block;
+	font-size: 18px;
+	margin: 5px;
+	float: left;
+	padding-left: 18px;
+}
+.formInput{
+	font-size: 18px;
+	padding: 5px 10px;
+}
+.formSubmitButton{
+	display: block;
+	font-size: 18px;
+	position: relative;
+	left: 0px;
+	top: 15px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+	float: right;
+	cursor: pointer;
+}
+th{
+	text-align: left;
+}
+tr{
+	text-align: left;
+}
+.listOfFeatures{
+	text-align: left;
+}
+.listOfFeatures li{
+	padding: 8px;
+}
+.listOfFeatures input{
+	padding: 5px;
+	margin-left: 20px;
+	width: 200px;
+}
+.menuList{
+	background-color: rgba(255, 255, 255, 0.23);
+	padding-bottom: 30px;
+	padding-top: 30px;
+}
+ul{
+
+}
+li{
+	text-align: left;
+	list-style: none;
+	padding-bottom: 3px;
+}
+.contentsWrapper{
+}
+.liMenuNumber{
+	padding-right: 10px;
+}
+.serviceTitle{
+	border-bottom: 1px solid rgba(0,0,0,.3);
+	display: block;
+	width: 100%;
+	color: rgba(0,0,0,.5);
+	font-size: 26px;
+	position: relative;
+}
+.serviceDataSTuff{
+	padding-left: 20px;
+}
+.serviceTitleAndStuffWrapper{
+	padding-bottom: 15px;
+}
+.pageTitle{
+	text-align: center;
+	font-size: 45px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contentsWrapper">
+
+<div class="contents">
+		{%if current_user.isAdmin == 'True' %}
+			<a class="pull-right" href="/editService/{{ projectInfo['projectId'] }}">Edit this Service</a>
+			<br>	
+			<br>	
+			<a class="pull-right" href="/removeService/{{ projectInfo['projectId'] }}">Delete this Service</a>
+		{% endif %}
+        <br>
+		<h1 class="pageTitle">{{ projectInfo.title }}</h1>
+		<ul class="menuList">
+			<li><span class="liMenuNumber">1. </span><a href="#"> <span>  Author</span></a></li>
+			<li><span class="liMenuNumber">2. </span><a href="#"> <span>  Source Code</span></a></li>
+			<li><span class="liMenuNumber">3. </span><a href="#"> <span>  Description</span></a></li>
+			<li><span class="liMenuNumber">4. </span><a href="#"> <span>  Input</span></a></li>
+			<li><span class="liMenuNumber">5. </span><a href="#"> <span>  Output</span></a></li>
+			<li><span class="liMenuNumber">6. </span><a href="#"> <span>  Requirements</span></a></li>
+			<li><span class="liMenuNumber">7. </span><a href="#"> <span>  Usage</span></a></li>
+			<li><span class="liMenuNumber">8. </span><a href="#"> <span>  Example</span></a></li>
+			<li><span class="liMenuNumber">9. </span><a href="#"> <span>  Keywords and Categories</span></a></li>
+		</ul>
+
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Unique Api Url</span><p class="serviceDataSTuff"><a href="/api/{{ projectInfo.Uname }}">/api/{{ projectInfo.Uname }}</a></p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Author</span><p class="serviceDataSTuff">{{ projectInfo.Author }}</p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">SourceCode</span><p class="serviceDataSTuff">{{ projectInfo.SourceCode }}</p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Description</span><p class="serviceDataSTuff">{{ projectInfo.Description }}</p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Input</span><p class="serviceDataSTuff">{{ projectInfo.Input }}</p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Output</span><p class="serviceDataSTuff">{{ projectInfo.Output }}</p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Requirements</span><p class="serviceDataSTuff">{{ projectInfo.Requirements }}</p></div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Usage</span><p class="serviceDataSTuff">{{ projectInfo.Usage }}</p></div>
+		<div class="serviceTitleAndStuffWrapper">
+			<span class="serviceTitle">Example</span>
+			<p class="serviceDataSTuff">{{ projectInfo.Example }}</p>
+		</div>
+		<div class="serviceTitleAndStuffWrapper"><span class="serviceTitle">Tags</span>
+			<p class="serviceDataSTuff">
+				{% for tag in projectInfo.tags %}
+					<span class=""> <a href="/searchForm?q={{tag}}">{{tag}}</a>, </span>
+				{% endfor %}
+			</p>
+			</div>
+		</div>
+
+</div>
+{% endblock %}
