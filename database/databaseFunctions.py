@@ -2,7 +2,6 @@ import random
 import string
 import globalDatabase
 import projectDatabase
-import fileDatabase
 import tagDatabase
 import pendingUserDatabase
 import userDatabase
