@@ -1,0 +1,26 @@
+ Code to Create Webservices table:
+
+CREATE TABLE CNGL_Webservices_Tbl (WebserviceID int NOT NULL AUTO_INCREMENT, Name nvarchar(100) NOT NULL, Description nvarchar(255),SourceCodeLink nvarchar(100), Author nvarchar(100),AddedByID int NOT NULL, AddedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, ChangedByID int, LastChangedDate DATETIME, ExpectedInput nvarchar(100), Output nvarchar(100), PRIMARY KEY (WebserviceID), CONSTRAINT Webservices_Unique_WebserviceID UNIQUE (WebserviceID));
+
+Code to create User table:
+CREATE TABLE CNGL_User_Tbl (UserID int NOT NULL AUTO_INCREMENT, UserName nvarchar(20) NOT NULL, Password nvarchar(20) NOT NULL, APIKey nvarchar(100), EmailAddress nvarchar(100) NOT NULL, IsAdmin int DEFAULT 0, IsPending int DEFAULT 1, PRIMARY KEY (UserID), CONSTRAINT User_Unique_UserID UNIQUE (UserID), CONSTRAINT User_Unique_UserName UNIQUE (UserName), CONSTRAINT User_Unique_APIKey(APIKey));
+
+Code to create Analytics table:
+CREATE TABLE CNGL_UserAnalytics_Tbl (AnalyticID int NOT NULL AUTO_INCREMENT, UserID int NOT NULL, WebServiceID int NOT NULL, Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (AnalyticID), CONSTRAINT UserAnalytic_Unique_Analytic UNIQUE (AnalyticID));
+
+
+Code to insert records into Webservices table:
+INSERT INTO CNGL_Webservices_Tbl (Name, Description, SourceCodeLink, Author, AddedByID, ExpectedInput, Output) VALUES ('[Title]', '[Description]', '[LinkToTheSouceCode]', '[Author]', [UserID], '[Input]', '[Output]')
+
+
+Code to insert records into User table (adding as pending user with no APIKey):
+INSERT INTO CNGL_User_Tbl (UserName, Password, EmailAddress, IsAdmin) VALUES ('[UserName]', '[Password Hash]', '[EmailAddress]', [0 or 1 depending])
+
+Code to insert records into Analytics table:
+INSERT INTO CNGL_UserAnalytics_Tbl (UserID, WebServiceID) VALUES ([UserID],[WebServiceID])
+
+Code to retrieve information from Analytics table:
+SELECT WebServices.Name AS [Webservice Name],Users.UserName, Analytics.Date 
+FROM CNGL_UserAnalytics_Tbl AS Analytics 
+	LEFT JOIN CNGL_User_Tbl As Users ON Analytics.UserID = Users.UserID
+	LEFT JOIN CNGL_WebServices_Tbl AS WebServices ON Analytics.WebserviceID=WebServices.WebserviceID
